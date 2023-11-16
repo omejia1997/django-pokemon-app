@@ -1,0 +1,47 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-12" style=" background-image: radial-gradient(circle at 46.09% 39.26%, #ffffff 0, #fbf9ff 50%, #d9d5e6 100%); box-shadow: 0px 0px 10px rgb(32, 31, 30), 0px 0px 10px rgb(114, 147, 200)">
+                <div class="row no-gutters">
+                    <div class="col-md-4 text-center vertical-center" style="background-color: rgb(237, 239, 240);">
+                        {% if pokemon_data.sprites.other.dream_world.front_default is not None %}
+                          <img src="{{pokemon_data.sprites.other.dream_world.front_default}}" class="card-img mx-auto" alt="{{pokemon_data.forms.0.name}}" height="300">
+                        {% else %}
+                            {% if pokemon_data.sprites.front_default is not None %}
+                                <img src="{{pokemon_data.sprites.front_default}}" class="card-img mx-auto" alt="{{pokemon_data.forms.0.name}}" height="300">
+                            {% else %}
+                                <img src="https://vignette3.wikia.nocookie.net/clubpenguin/images/4/4c/Pokeball.png/revision/latest?cb=20130901024704" class="card-img mx-auto" alt="{{pokemon_data.forms.0.name}}" height="300">
+                            {% endif %}       
+                        {% endif %}
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body text-center">
+                            <h2 class="card-title">{{pokemon_data.forms.0.name}}</h2>
+                            <br>
+                            <h6>Abilities</h6>
+                            {% for ability in pokemon_data.abilities %}
+                                <span class="card-text">{{ability.ability.name}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                            {% endfor %}
+                            <p class="card-text"><h6>Base experience:</h6> {{pokemon_data.base_experience}}</p>
+                            <h6>Moves</h6>
+                            {% for move in pokemon_data.moves %}
+                                <span class="card-text">{{move.move.name}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .vertical-center {
+            display: flex;
+            align-items: center;
+        }
+    </style>
+
+{% endblock %}

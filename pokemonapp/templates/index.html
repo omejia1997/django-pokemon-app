@@ -1,0 +1,44 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+    <br>
+    <form method="get" class="text-center" action="{% url 'search' %}">
+        {% csrf_token %}
+        <label for="id_search">Name of Pokemon:</label>
+        <input type="text" value="{{consult}}" placeholder="Name of pokemon" name="search" id="id_search">
+        <input type="submit" value="search">
+    </form>
+    <div class="container mt-4">
+        <div class="row">
+            {% for pokemon in pokemons_data %}
+                <div class="col-md-4" style="max-width: 540px; background-image: radial-gradient(circle at 46.09% 39.26%, #ffffff 0, #fbf9ff 50%, #d9d5e6 100%); box-shadow: 0px 0px 10px rgb(32, 31, 30), 0px 0px 10px rgb(114, 147, 200)">
+                    <div class="row no-gutters">
+                        <div class="col-md-4 text-center vertical-center" style="background-color: rgb(237, 239, 240);">
+                            <img src="{{pokemon.url_image}}" class="card-img mx-auto" alt="{{pokemon.name}}" height="120">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">{{pokemon.name}}</h5>
+                                <p class="card-text">Abilities:{{pokemon.number_abilities}}</p>
+                                <a href="{% url 'view_information_pokemon' %}?name_pokemon={{ pokemon.name}}" class="btn btn-outline-primary btn-sm">View details of pokemon</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            <p></p>
+            <div>
+                {% include 'paginator.html'  %}
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .vertical-center {
+            display: flex;
+            align-items: center;
+        }
+    </style>
+
+{% endblock %}
